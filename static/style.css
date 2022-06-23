@@ -1,0 +1,120 @@
+:root {
+    --font-family-title: 'Roboto', sans-serif;
+    --font-family-main: 'Open Sans', sans-serif;
+    --font-dark-no-adjust: black;
+
+    --font-dark--light: var(--font-dark-no-adjust);
+    --font-light--light: #f0f0f0;
+    --bg-bnt--light: #adadad;
+    --bg-body--light: #9299a5;
+
+    --font-dark--dark: var(--font-light--dark);
+    --font-light--dark: #bcbcbc;
+    --bg-bnt--dark: #003d4b;
+    --bg-body--dark: #002b36;
+
+
+    color-scheme: light;
+    --font-dark: var(--font-dark--light);
+    --font-light: var(--font-light--light);
+    --bg-bnt: var(--bg-bnt--light);
+    --bg-body: var(--bg-body--light);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        --font-dark: var(--font-dark--dark);
+        --font-light: var(--font-dark--dark);
+        --bg-bnt: var(--bg-bnt--dark);
+        --bg-body: var(--bg-body--dark);
+    }
+}
+
+footer,
+header,
+input,
+select,
+button,
+label,
+div {
+    color: var(--font-dark);
+    font-size: 1rem;
+    font-family: var(--font-family-main);
+}
+
+h1,
+h2,
+h3 {
+    font-family: var(--font-family-title);
+    color: var(--font-dark);
+}
+
+h1 {
+    font-size: 2em;
+}
+
+body {
+    background-color: var(--bg-body);
+    max-width: 1000px;
+    margin: auto;
+    padding: 1rem;
+}
+
+header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+header h1 {
+    margin-right: auto;
+}
+
+header nav {
+    display: flex;
+    gap: 10px;
+}
+
+header nav a,
+header nav button {
+    text-decoration: none;
+    color: var(--font-dark);
+    padding: .7rem 1.2rem;
+    background-color: var(--bg-bnt);
+    border-radius: 10px;
+    border-style: none;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+header nav a:hover,
+header nav button:hover {
+    transition-duration: 400ms;
+    background-color: black;
+    color: var(--font-light);
+    cursor: pointer;
+}
+
+footer {
+    text-align: center;
+    margin-top: 100px;
+    border-top: var(--font-light) solid;
+    padding-top: 10px;
+}
+
+footer a {
+    color: #1d7dab;
+    text-decoration: none;
+}
+
+@media(max-width:500px) {
+
+    header,
+    header nav {
+        flex-direction: column;
+        width: 100%;
+    }
+}

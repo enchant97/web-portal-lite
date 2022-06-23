@@ -1,4 +1,5 @@
 use rocket::fairing::AdHoc;
+use rocket::fs::{relative, FileServer};
 use rocket::{launch, routes};
 use rocket_dyn_templates::Template;
 
@@ -12,8 +13,9 @@ fn rocket() -> _ {
         .attach(Template::fairing())
         .mount("/", routes![
                 routes::index,
-                routes::get_icon,
             ]
         )
+        .mount("/static", routes!(routes::get_icon))
+        .mount("/static", FileServer::from(relative!("static/")))
         .attach(AdHoc::config::<config::Config>())
 }
