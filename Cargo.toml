@@ -6,6 +6,9 @@ edition = "2021"
 [dependencies]
 serde = "1.0.137"
 serde_yaml= "0.8.24"
+# for password hashing
+argon2 = "0.4"
+rand_core = { version = "0.6", features = ["std"] }
 
 [dependencies.rocket]
 version = "0.5.0-rc.2"
