@@ -1,0 +1,5 @@
+{% macro feather_img(icon_name) -%}
+<svg class="feather-icon">
+    <use href="/static/feather-sprite.svg#{{ icon_name }}"></use>
+</svg>
+{% endmacro feather_img -%}

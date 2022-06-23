@@ -110,6 +110,16 @@ footer a {
     text-decoration: none;
 }
 
+.feather-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    fill: none;
+}
+
 @media(max-width:500px) {
 
     header,
