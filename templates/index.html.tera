@@ -1,0 +1,5 @@
+{% extends "partials/base" %}
+{% block title %}Portal{% endblock title %}
+{% block content %}
+
+{% endblock content %}
