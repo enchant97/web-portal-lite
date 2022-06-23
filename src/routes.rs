@@ -1,4 +1,4 @@
-use crate::config::Config;
+use crate::config::ServerConfig;
 use crate::utils::load_named_icon;
 use rocket::fs::NamedFile;
 use rocket::{get, State};
@@ -10,6 +10,6 @@ pub fn index() -> Template {
 }
 
 #[get("/icons/<icon_name>")]
-pub async fn get_icon(icon_name: &str, config: &State<Config>) -> Option<NamedFile> {
+pub async fn get_icon(icon_name: &str, config: &State<ServerConfig>) -> Option<NamedFile> {
     load_named_icon(icon_name, &config.icons_path).await
 }

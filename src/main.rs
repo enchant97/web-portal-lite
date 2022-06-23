@@ -17,5 +17,5 @@ fn rocket() -> _ {
         )
         .mount("/static", routes!(routes::get_icon))
         .mount("/static", FileServer::from(relative!("static/")))
-        .attach(AdHoc::config::<config::Config>())
+        .attach(AdHoc::config::<config::ServerConfig>())
 }
