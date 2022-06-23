@@ -9,8 +9,17 @@ use rocket::{get, post, uri, State};
 use rocket_dyn_templates::{context, Template};
 
 #[get("/")]
-pub fn index(flash: Option<FlashMessage<'_>>) -> Template {
-    Template::render("index", context!(flashed_message: flash))
+pub fn index(
+    flash: Option<FlashMessage<'_>>,
+    cookies: &CookieJar<'_>,
+    config: &State<ServerConfig>,
+) -> Template {
+    let user_config = read_user_config(&config.config_path).unwrap();
+    let is_authenticated = ensure_authenticated(cookies, &user_config.accounts).is_ok();
+    Template::render(
+        "index",
+        context!(flashed_message: flash, is_authenticated: is_authenticated),
+    )
 }
 
 #[get("/icons/<icon_name>")]

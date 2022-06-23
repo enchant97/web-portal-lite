@@ -1,3 +1,4 @@
+{% import "macros" as macros %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,12 +17,16 @@
     <header>
         <h1>Portal</h1>
         <nav>
-
+            {% if is_authenticated %}
+            <a href="/auth/logout">{{ macros::feather_img(icon_name='log-out') }}Log Out</a>
+            {% else %}
+            <a href="/auth/login">{{ macros::feather_img(icon_name='log-in') }}Log In</a>
+            {% endif %}
         </nav>
-        {% if flashed_message %}
-        <div class="flashed-message {{ flashed_message.kind }}">{{ flashed_message.message }}</div>
-        {% endif %}
     </header>
+    {% if flashed_message %}
+    <div class="flashed-message {{ flashed_message.kind }}">{{ flashed_message.message }}</div>
+    {% endif %}
     <main>
         {% block content %}{% endblock content %}
     </main>
