@@ -6,7 +6,6 @@ use std::path::PathBuf;
 pub struct ServerConfig {
     pub config_path: PathBuf,
     pub icons_path: PathBuf,
-    pub guest_allowed: bool,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
@@ -33,5 +32,6 @@ pub struct UserConfigAccount {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UserConfig {
     config_version: usize,
+    public_dash: bool,
     accounts: HashMap<String, UserConfigAccount>,
 }
