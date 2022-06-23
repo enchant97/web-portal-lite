@@ -1,0 +1,4 @@
+[default]
+config_path="./data/config.yml"
+icons_path="./data/icons"
+guest_allowed=true
