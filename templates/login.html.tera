@@ -1,0 +1,12 @@
+{% extends "partials/base" %}
+{% block title %}Login{% endblock title %}
+{% block content %}
+<h2>Login</h2>
+<form action="/auth/login" method="post">
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <button type="submit">Login</button>
+</form>
+{% endblock content %}

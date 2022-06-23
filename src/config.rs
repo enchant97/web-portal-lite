@@ -10,28 +10,28 @@ pub struct ServerConfig {
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UserConfigLink {
-    title: String,
-    color_name: Option<String>,
-    icon_name: Option<String>,
-    href: String,
+    pub title: String,
+    pub color_name: Option<String>,
+    pub icon_name: Option<String>,
+    pub href: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UserConfigDashboard {
-    title: String,
-    show_header: bool,
-    links: Vec<UserConfigLink>,
+    pub title: String,
+    pub show_header: bool,
+    pub links: Vec<UserConfigLink>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UserConfigAccount {
-    password: String,
-    dashboard: Option<Vec<UserConfigDashboard>>,
+    pub password: String,
+    pub dashboard: Option<Vec<UserConfigDashboard>>,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UserConfig {
-    config_version: usize,
-    public_dash: bool,
-    accounts: HashMap<String, UserConfigAccount>,
+    pub config_version: usize,
+    pub public_dash: bool,
+    pub accounts: HashMap<String, UserConfigAccount>,
 }

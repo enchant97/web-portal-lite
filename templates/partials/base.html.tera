@@ -7,7 +7,8 @@
     <title>{% block title %}{% endblock title %} - Web-Portal</title>
     <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&family=Roboto&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 
@@ -17,6 +18,9 @@
         <nav>
 
         </nav>
+        {% if flashed_message %}
+        <div class="flashed-message {{ flashed_message.kind }}">{{ flashed_message.message }}</div>
+        {% endif %}
     </header>
     <main>
         {% block content %}{% endblock content %}

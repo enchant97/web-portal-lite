@@ -13,6 +13,9 @@ fn rocket() -> _ {
         .attach(Template::fairing())
         .mount("/", routes![
                 routes::index,
+                routes::get_login,
+                routes::post_login,
+                routes::get_logout,
             ]
         )
         .mount("/static", routes!(routes::get_icon))

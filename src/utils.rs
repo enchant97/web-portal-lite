@@ -1,6 +1,8 @@
-use crate::config::UserConfig;
+use crate::config::{UserConfig, UserConfigAccount};
 use rocket::fs::NamedFile;
+use rocket::http::CookieJar;
 use serde_yaml;
+use std::collections::HashMap;
 use std::fs::File;
 use std::io::BufReader;
 use std::path::{Path, PathBuf};
@@ -29,4 +31,18 @@ pub fn read_user_config(config_path: &PathBuf) -> std::io::Result<UserConfig> {
     let file = File::open(config_path)?;
     let user_config: UserConfig = serde_yaml::from_reader(BufReader::new(file)).unwrap();
     Ok(user_config)
+}
+
+/// Returns whether user is authenticated and actually exists
+pub fn ensure_authenticated(
+    cookies: &CookieJar,
+    accounts: &HashMap<String, UserConfigAccount>,
+) -> Result<(), ()> {
+    match cookies.get_private("AUTH") {
+        Some(cookie) => match accounts.get(cookie.value()) {
+            Some(_) => Ok(()),
+            None => Err(()),
+        },
+        None => Err(()),
+    }
 }
