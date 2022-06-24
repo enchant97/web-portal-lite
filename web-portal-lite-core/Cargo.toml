@@ -1,0 +1,9 @@
+[package]
+name = "web_portal_lite_core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# for password hashing
+argon2 = "0.4"
+rand_core = { version = "0.6", features = ["std"] }
