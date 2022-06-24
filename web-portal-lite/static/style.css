@@ -13,7 +13,7 @@
 
     --font-dark--dark: var(--font-light--dark);
     --font-light--dark: #bcbcbc;
-    --bg-bnt--dark: #003d4b;
+    --bg-bnt--dark: #024f61;
     --bg-body--dark: #002b36;
     --bg-sub--dark: #083b47;
 
@@ -60,6 +60,27 @@ h1 {
     font-size: 2em;
 }
 
+input {
+    border-radius: var(--border-radius);
+    background-color: var(--bg-bnt);
+    padding: .4rem;
+    border: none;
+}
+
+button {
+    background-color: var(--bg-bnt);
+    border-style: none;
+    padding: .7rem 1.2rem;
+    border-radius: var(--border-radius);
+}
+
+button:hover {
+    transition-duration: 400ms;
+    background-color: black;
+    color: var(--font-light);
+    cursor: pointer;
+}
+
 body {
     background-color: var(--bg-body);
     max-width: 1000px;
@@ -87,7 +108,7 @@ header nav button {
     text-decoration: none;
     color: var(--font-dark);
     padding: .7rem 1.2rem;
-    background-color: var(--bg-bnt);
+    background-color: var(--bg-sub);
     border-radius: var(--border-radius);
     border-style: none;
     margin: 0;
@@ -124,6 +145,21 @@ footer a {
     stroke-linecap: round;
     stroke-linejoin: round;
     fill: none;
+}
+
+.flashed-message {
+    font-weight: bold;
+    background-color: var(--bg-sub);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+}
+
+.flashed-message.error {
+    background-color: #cc2121;
+}
+
+.flashed-message.success {
+    background-color: #218c21;
 }
 
 .dashboard .group .heading {
@@ -170,6 +206,25 @@ footer a {
     object-fit: contain;
 }
 
+.login {
+    border-radius: var(--border-radius);
+    background-color: var(--bg-sub);
+    width: 50%;
+    padding: 1rem;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.login input {
+    margin-bottom: .4rem;
+}
+
+.login img {
+    max-width: 200px;
+    margin: auto;
+}
+
 @media(max-width:500px) {
 
     header,
@@ -192,5 +247,9 @@ footer a {
 @media(max-width:490px) {
     .dashboard .group .links {
         grid-template-columns: 100%;
+    }
+
+    .login {
+        width: 100%;
     }
 }

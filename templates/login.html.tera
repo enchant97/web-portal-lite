@@ -2,7 +2,8 @@
 {% block title %}Login{% endblock title %}
 {% block content %}
 <h2>Login</h2>
-<form action="/auth/login" method="post">
+<form class="login" action="/auth/login" method="post">
+    <img src="/static/icon-256.png" alt="app icon">
     <label for="username">Username</label>
     <input type="text" name="username" id="username" required>
     <label for="password">Password</label>
