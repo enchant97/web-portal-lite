@@ -13,8 +13,8 @@
             {% for link in group.links %}
             <a class="link {{ link.color_name }}" href="{{ link.href }}" rel="noopener noreferrer"
                 aria-label="{{ link.title }}">
-                {%- if icon_name -%}
-                <img src="/static/icons/{{ icon_name }}" alt="icon for '{{ icon_name }}' link">
+                {%- if link.icon_name -%}
+                <img src="/static/icons/{{ link.icon_name }}" alt="icon for '{{ link.icon_name }}' link">
                 {%- endif -%}
                 <span>{{ link.title }}</span>
             </a>

@@ -11,8 +11,8 @@ pub struct ServerConfig {
 #[derive(Debug, Deserialize, Serialize)]
 pub struct UserConfigLink {
     pub title: String,
-    pub color_name: Option<String>,
-    pub icon_name: Option<String>,
+    pub color_name: String,
+    pub icon_name: String,
     pub href: String,
 }
 
