@@ -1,4 +1,6 @@
 :root {
+    --border-radius: 10px;
+
     --font-family-title: 'Roboto', sans-serif;
     --font-family-main: 'Open Sans', sans-serif;
     --font-dark-no-adjust: black;
@@ -7,11 +9,13 @@
     --font-light--light: #f0f0f0;
     --bg-bnt--light: #adadad;
     --bg-body--light: #9299a5;
+    --bg-sub--light: #848a94;
 
     --font-dark--dark: var(--font-light--dark);
     --font-light--dark: #bcbcbc;
     --bg-bnt--dark: #003d4b;
     --bg-body--dark: #002b36;
+    --bg-sub--dark: #083b47;
 
 
     color-scheme: light;
@@ -19,6 +23,7 @@
     --font-light: var(--font-light--light);
     --bg-bnt: var(--bg-bnt--light);
     --bg-body: var(--bg-body--light);
+    --bg-sub: var(--bg-sub--light);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -28,6 +33,7 @@
         --font-light: var(--font-dark--dark);
         --bg-bnt: var(--bg-bnt--dark);
         --bg-body: var(--bg-body--dark);
+        --bg-sub: var(--bg-sub--dark);
     }
 }
 
@@ -82,7 +88,7 @@ header nav button {
     color: var(--font-dark);
     padding: .7rem 1.2rem;
     background-color: var(--bg-bnt);
-    border-radius: 10px;
+    border-radius: var(--border-radius);
     border-style: none;
     margin: 0;
     display: flex;
@@ -120,11 +126,71 @@ footer a {
     fill: none;
 }
 
+.dashboard .group .heading {
+    text-align: center;
+}
+
+.dashboard .group {
+    padding: 1.2rem;
+    background-color: var(--bg-sub);
+    border-radius: var(--border-radius);
+}
+
+.dashboard .group .links {
+    display: grid;
+    grid-template-columns: repeat(3, 32%);
+    justify-content: center;
+    gap: 10px;
+}
+
+.dashboard .group .links .link {
+    border-radius: var(--border-radius);
+    padding: 3rem;
+    text-decoration: none;
+    font-family: var(--font-family-title);
+    font-size: 1.5rem;
+    text-align: center;
+    box-shadow: 4px 4px 0px black;
+    word-wrap: break-word;
+    /* for icon based links */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.dashboard .group .links .link:hover {
+    transition-duration: 400ms;
+    background-color: black;
+    color: var(--font-light);
+}
+
+.dashboard .group .links .link img {
+    width: 3rem;
+    height: 3rem;
+    object-fit: contain;
+}
+
 @media(max-width:500px) {
 
     header,
     header nav {
         flex-direction: column;
         width: 100%;
+    }
+
+    .dashboard .group .links .link {
+        padding: 2rem 1rem;
+    }
+}
+
+@media(max-width:640px) {
+    .dashboard .group .links {
+        grid-template-columns: repeat(2, 200px);
+    }
+}
+
+@media(max-width:490px) {
+    .dashboard .group .links {
+        grid-template-columns: 100%;
     }
 }
