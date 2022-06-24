@@ -10,7 +10,7 @@ fn handle_password_hasher() {
     print!("enter password: ");
     io::stdout().flush().unwrap();
     match io::stdin().read_line(&mut password) {
-        Ok(_) => match create_hashed_password(&password) {
+        Ok(_) => match create_hashed_password(password.trim()) {
             Ok(hashed_pw) => println!("hashed password: {hashed_pw}"),
             Err(_) => eprintln!("error hashing password"),
         },
