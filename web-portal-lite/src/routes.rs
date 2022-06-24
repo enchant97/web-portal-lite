@@ -7,6 +7,7 @@ use rocket::request::FlashMessage;
 use rocket::response::{Flash, Redirect};
 use rocket::{get, post, uri, State};
 use rocket_dyn_templates::{context, Template};
+use web_portal_lite_core::verify_hashed_password;
 
 #[get("/")]
 pub fn index(
@@ -64,7 +65,7 @@ pub fn post_login(
 
     match user_config.accounts.get(&username) {
         Some(user) => {
-            if user.password == login_form.password {
+            if verify_hashed_password(&login_form.password, &user.password).unwrap() {
                 cookies.add_private(Cookie::new("AUTH", username));
                 return Ok(Redirect::to(uri!(index)));
             }
