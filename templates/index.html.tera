@@ -2,4 +2,29 @@
 {% block title %}Portal{% endblock title %}
 {% block content %}
 
+<div class="dashboard">
+    {% if dashboard %}
+    {% for group in dashboard %}
+    <div class="group">
+        {% if group.show_header %}
+        <h2 class="header">{{ group.title }}</h2>
+        {% endif %}
+        <div class="links">
+            {% for link in group.links %}
+            <a class="link {{ link.color_name }}" href="{{ link.href }}" rel="noopener noreferrer"
+                aria-label="{{ link.title }}">
+                {%- if icon_name -%}
+                <img src="/static/icons/{{ icon_name }}" alt="icon for '{{ icon_name }}' link">
+                {%- endif -%}
+                <span>{{ link.title }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <p>No dashboard could be loaded/found.</p>
+    {% endif %}
+</div>
+
 {% endblock content %}

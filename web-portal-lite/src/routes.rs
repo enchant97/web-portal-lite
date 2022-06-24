@@ -1,4 +1,4 @@
-use crate::config::ServerConfig;
+use crate::config::{ServerConfig, UserConfigDashboard};
 use crate::utils::{ensure_authenticated, load_named_icon, read_user_config};
 use rocket::form::{Form, FromForm, Strict};
 use rocket::fs::NamedFile;
@@ -16,10 +16,38 @@ pub fn index(
     config: &State<ServerConfig>,
 ) -> Template {
     let user_config = read_user_config(&config.config_path).unwrap();
-    let is_authenticated = ensure_authenticated(cookies, &user_config.accounts).is_ok();
+    let is_authenticated;
+    let dashboard: &Vec<UserConfigDashboard>;
+    let empty_dashboard = vec![];
+
+    match ensure_authenticated(cookies, &user_config.accounts) {
+        Ok(username) => {
+            is_authenticated = true;
+            dashboard = match user_config
+                .accounts
+                .get(&username)
+                .unwrap()
+                .dashboard
+                .as_ref()
+            {
+                Some(v) => v,
+                None => empty_dashboard.as_ref(),
+            };
+        }
+        Err(_) => {
+            // TODO implement public dashboard
+            is_authenticated = false;
+            dashboard = empty_dashboard.as_ref();
+        }
+    };
+
     Template::render(
         "index",
-        context!(flashed_message: flash, is_authenticated: is_authenticated),
+        context!(
+            flashed_message: flash,
+            is_authenticated: is_authenticated,
+            dashboard: dashboard
+        ),
     )
 }
 

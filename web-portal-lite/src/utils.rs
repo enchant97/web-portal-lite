@@ -44,10 +44,10 @@ pub fn write_user_config(config_path: &PathBuf, config: &UserConfig) {
 pub fn ensure_authenticated(
     cookies: &CookieJar,
     accounts: &HashMap<String, UserConfigAccount>,
-) -> Result<(), ()> {
+) -> Result<String, ()> {
     match cookies.get_private("AUTH") {
         Some(cookie) => match accounts.get(cookie.value()) {
-            Some(_) => Ok(()),
+            Some(_) => Ok(cookie.value().to_string()),
             None => Err(()),
         },
         None => Err(()),
