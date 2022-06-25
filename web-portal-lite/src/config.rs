@@ -2,6 +2,8 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::path::PathBuf;
 
+pub const CURRENT_USER_CONFIG_VER: usize = 1;
+
 #[derive(Debug, Deserialize)]
 pub struct ServerConfig {
     pub config_path: PathBuf,
@@ -27,6 +29,11 @@ pub struct UserConfigDashboard {
 pub struct UserConfigAccount {
     pub password: String,
     pub dashboard: Option<Vec<UserConfigDashboard>>,
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct UserConfigBase {
+    pub config_version: usize,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
