@@ -1,4 +1,4 @@
-use crate::config::{ServerConfig, UserConfigDashboard};
+use crate::config::{ServerConfig, UserConfig, UserConfigDashboard};
 use crate::utils::{ensure_authenticated, load_named_icon, read_user_config};
 use rocket::form::{Form, FromForm, Strict};
 use rocket::fs::NamedFile;
@@ -13,9 +13,8 @@ use web_portal_lite_core::verify_hashed_password;
 pub fn index(
     flash: Option<FlashMessage<'_>>,
     cookies: &CookieJar<'_>,
-    config: &State<ServerConfig>,
+    user_config: &State<UserConfig>,
 ) -> Template {
-    let user_config = read_user_config(&config.config_path).unwrap();
     let is_authenticated;
     let dashboard: &Vec<UserConfigDashboard>;
     let empty_dashboard = vec![];
@@ -60,11 +59,8 @@ pub async fn get_icon(icon_name: &str, config: &State<ServerConfig>) -> Option<N
 pub fn get_login(
     flash: Option<FlashMessage<'_>>,
     cookies: &CookieJar<'_>,
-    config: &State<ServerConfig>,
+    user_config: &State<UserConfig>,
 ) -> Result<Template, Flash<Redirect>> {
-    // FIXME remove unwrap use here
-    let user_config = read_user_config(&config.config_path).unwrap();
-
     match ensure_authenticated(cookies, &user_config.accounts).is_ok() {
         true => Err(Flash::warning(
             Redirect::to(uri!(index)),
@@ -83,12 +79,10 @@ pub struct UserLoginForm {
 #[post("/auth/login", data = "<login_form>")]
 pub fn post_login(
     cookies: &CookieJar<'_>,
-    config: &State<ServerConfig>,
+    user_config: &State<UserConfig>,
     login_form: Form<Strict<UserLoginForm>>,
 ) -> Result<Redirect, Flash<Redirect>> {
     // FIXME remove unwrap use here
-    let user_config = read_user_config(&config.config_path).unwrap();
-
     let username = login_form.username.to_string();
 
     match user_config.accounts.get(&username) {

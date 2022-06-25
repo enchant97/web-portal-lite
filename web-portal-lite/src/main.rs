@@ -9,7 +9,7 @@ mod utils;
 
 #[launch]
 fn rocket() -> _ {
-    let rocket = rocket::build()
+    let mut rocket = rocket::build()
         .attach(Template::fairing())
         .mount(
             "/",
@@ -39,6 +39,12 @@ fn rocket() -> _ {
             };
         }
     };
+
+    // early full user config parse, so routes can use it as a State
+    // FIXME remove unwrap use
+    let user_config = utils::read_user_config(&server_config.config_path).unwrap();
+    // NOTE a Mutex might need to be added to allow state to be modified
+    rocket = rocket.manage(user_config);
 
     rocket
 }
