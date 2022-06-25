@@ -4,7 +4,7 @@ use rocket::http::CookieJar;
 use serde_yaml;
 use std::collections::HashMap;
 use std::fs::File;
-use std::io::{BufReader, BufWriter};
+use std::io::BufReader;
 use std::path::{Path, PathBuf};
 
 /// Will try to load icon from svg folder then png.
@@ -58,13 +58,6 @@ pub fn is_user_config_supported(config_path: &PathBuf) -> Result<(), UserConfigE
         CURRENT_USER_CONFIG_VER => Ok(()),
         _ => Err(UserConfigError::VersionNotSupported),
     }
-}
-
-pub fn write_user_config(config_path: &PathBuf, config: &UserConfig) {
-    // TODO convert to async using tokio
-    // FIXME get rid of unwrap usage
-    let file = File::create(config_path).unwrap();
-    serde_yaml::to_writer(BufWriter::new(file), config).unwrap();
 }
 
 /// Returns whether user is authenticated and actually exists
