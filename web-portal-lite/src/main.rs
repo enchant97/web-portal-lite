@@ -41,8 +41,18 @@ fn rocket() -> _ {
     };
 
     // early full user config parse, so routes can use it as a State
-    // FIXME remove unwrap use
-    let user_config = utils::read_user_config(&server_config.config_path).unwrap();
+    let user_config = match utils::read_user_config(&server_config.config_path) {
+        Ok(loaded_config) => loaded_config,
+        Err(error) => match error {
+            utils::UserConfigError::FileAccessError => panic!("user config file access error"),
+            utils::UserConfigError::ParseError => {
+                panic!("user config parse error, does config match version number?")
+            }
+            utils::UserConfigError::VersionNotSupported => {
+                panic!("user config version not supported")
+            }
+        },
+    };
     // NOTE a Mutex might need to be added to allow state to be modified
     rocket = rocket.manage(user_config);
 

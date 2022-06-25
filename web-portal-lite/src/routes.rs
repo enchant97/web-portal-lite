@@ -1,5 +1,5 @@
 use crate::config::{ServerConfig, UserConfig, UserConfigDashboard};
-use crate::utils::{ensure_authenticated, load_named_icon, read_user_config};
+use crate::utils::{ensure_authenticated, load_named_icon};
 use rocket::form::{Form, FromForm, Strict};
 use rocket::fs::NamedFile;
 use rocket::http::{Cookie, CookieJar};

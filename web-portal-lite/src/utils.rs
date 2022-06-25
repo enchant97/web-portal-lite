@@ -32,17 +32,29 @@ pub enum UserConfigError {
 }
 
 /// Read a user config file and return it
-pub fn read_user_config(config_path: &PathBuf) -> std::io::Result<UserConfig> {
+pub fn read_user_config(config_path: &PathBuf) -> Result<UserConfig, UserConfigError> {
     // TODO convert to async using tokio
-    // FIXME get rid of unwrap usage
-    let file = File::open(config_path)?;
-    let user_config: UserConfig = serde_yaml::from_reader(BufReader::new(file)).unwrap();
+    // read file
+    let file = match File::open(config_path) {
+        Ok(file_obj) => file_obj,
+        Err(_) => return Err(UserConfigError::FileAccessError),
+    };
+    // parse file
+    let user_config: UserConfig = match serde_yaml::from_reader(BufReader::new(file)) {
+        Ok(loaded_config) => loaded_config,
+        Err(_) => return Err(UserConfigError::ParseError),
+    };
+    // config version number check
+    if user_config.config_version != CURRENT_USER_CONFIG_VER {
+        return Err(UserConfigError::VersionNotSupported);
+    }
     Ok(user_config)
 }
 
 /// Checks whether the user config file is supported,
 /// by checking the version number
 pub fn is_user_config_supported(config_path: &PathBuf) -> Result<(), UserConfigError> {
+    // TODO convert to async using tokio
     // open file
     let file = match File::open(config_path) {
         Ok(file_obj) => file_obj,
