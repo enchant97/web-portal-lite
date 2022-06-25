@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  web-portal-lite:
+    container_name: web-portal-lite
+    image: ghcr.io/enchant97/web-portal-lite
+    # restart: unless-stopped
+    volumes:
+      - ./data/icons:/app/icons
+      - ./data/config.yml:/app/config.yml
+    ports:
+      - 8000:8000
+    environment:
+      # change the secret key don't use this one
+      - "ROCKET_SECRET_KEY=3zMk1feDkqIX1ycYIVp2FyFvmrjm52sy8ArBLf2TxgY="

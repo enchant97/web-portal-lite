@@ -2,5 +2,6 @@
 config_path="./data/config.yml"
 icons_path="./data/icons"
 
-[production]
+[release]
 address = "0.0.0.0"
+port = 8000
