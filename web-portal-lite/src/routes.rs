@@ -17,30 +17,30 @@ pub fn index(
     user_config: &State<UserConfig>,
 ) -> Result<Template, Flash<Redirect>> {
     let is_authenticated;
-    let dashboard: &Vec<UserConfigDashboard>;
     let empty_dashboard = vec![];
 
-    match ensure_authenticated(cookies, &user_config.accounts) {
-        Ok(username) => {
-            is_authenticated = true;
-            dashboard = get_user_dashboard_or_default(user_config, &empty_dashboard, &username);
-        }
-        Err(_) => {
-            // Check if login is required to access portal
-            if user_config.public_dash == false {
-                return Err(Flash::error(
-                    Redirect::to(uri!(get_login)),
-                    "login is required to access this portal",
-                ));
+    let dashboard: &Vec<UserConfigDashboard> =
+        match ensure_authenticated(cookies, &user_config.accounts) {
+            Ok(username) => {
+                is_authenticated = true;
+                get_user_dashboard_or_default(user_config, &empty_dashboard, &username)
             }
-            is_authenticated = false;
-            dashboard = get_user_dashboard_or_default(
-                user_config,
-                &empty_dashboard,
-                &server_config.public_dash_username,
-            );
-        }
-    };
+            Err(_) => {
+                // Check if login is required to access portal
+                if user_config.public_dash {
+                    return Err(Flash::error(
+                        Redirect::to(uri!(get_login)),
+                        "login is required to access this portal",
+                    ));
+                }
+                is_authenticated = false;
+                get_user_dashboard_or_default(
+                    user_config,
+                    &empty_dashboard,
+                    &server_config.public_dash_username,
+                )
+            }
+        };
 
     Ok(Template::render(
         "index",
@@ -89,7 +89,7 @@ pub fn post_login(
     let username = login_form.username.to_string();
 
     // ensure username is not the public virtual account when public mode is on
-    if username == server_config.public_dash_username && user_config.public_dash == true {
+    if username == server_config.public_dash_username && user_config.public_dash {
         return Err(Flash::error(
             Redirect::to(uri!(get_login)),
             "login to this account is not allowed",
@@ -98,7 +98,7 @@ pub fn post_login(
 
     match user_config.accounts.get(&username) {
         Some(user) => {
-            if verify_hashed_password(&login_form.password, &user.password).unwrap() {
+            if verify_hashed_password(&login_form.password, &user.password) {
                 cookies.add_private(Cookie::new("AUTH", username));
                 return Ok(Redirect::to(uri!(index)));
             }

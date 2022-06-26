@@ -3,7 +3,6 @@ use crate::config::{
 };
 use rocket::fs::NamedFile;
 use rocket::http::CookieJar;
-use serde_yaml;
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::BufReader;
@@ -94,15 +93,11 @@ pub fn get_user_dashboard_or_default<'conf>(
     default_dashboard: &'conf Vec<UserConfigDashboard>,
     username: &str,
 ) -> &'conf Vec<UserConfigDashboard> {
-    let dashboard: &Vec<UserConfigDashboard>;
-
-    dashboard = match user_config.accounts.get(username) {
+    match user_config.accounts.get(username) {
         Some(account) => match account.dashboard.as_ref() {
             Some(dash) => dash,
             None => default_dashboard,
         },
         None => default_dashboard,
-    };
-
-    dashboard
+    }
 }
