@@ -1,4 +1,6 @@
-use crate::config::{UserConfig, UserConfigAccount, UserConfigBase, CURRENT_USER_CONFIG_VER};
+use crate::config::{
+    UserConfig, UserConfigAccount, UserConfigBase, UserConfigDashboard, CURRENT_USER_CONFIG_VER,
+};
 use rocket::fs::NamedFile;
 use rocket::http::CookieJar;
 use serde_yaml;
@@ -84,4 +86,23 @@ pub fn ensure_authenticated(
         },
         None => Err(()),
     }
+}
+
+/// Returns the user's dashboard or default if none can be found
+pub fn get_user_dashboard_or_default<'conf>(
+    user_config: &'conf UserConfig,
+    default_dashboard: &'conf Vec<UserConfigDashboard>,
+    username: &str,
+) -> &'conf Vec<UserConfigDashboard> {
+    let dashboard: &Vec<UserConfigDashboard>;
+
+    dashboard = match user_config.accounts.get(username) {
+        Some(account) => match account.dashboard.as_ref() {
+            Some(dash) => dash,
+            None => default_dashboard,
+        },
+        None => default_dashboard,
+    };
+
+    dashboard
 }

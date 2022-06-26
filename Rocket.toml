@@ -1,6 +1,7 @@
 [default]
 config_path="./data/config.yml"
 icons_path="./data/icons"
+public_dash_username = "public"
 
 [release]
 address = "0.0.0.0"

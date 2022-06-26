@@ -1,5 +1,5 @@
 use crate::config::{ServerConfig, UserConfig, UserConfigDashboard};
-use crate::utils::{ensure_authenticated, load_named_icon};
+use crate::utils::{ensure_authenticated, get_user_dashboard_or_default, load_named_icon};
 use rocket::form::{Form, FromForm, Strict};
 use rocket::fs::NamedFile;
 use rocket::http::{Cookie, CookieJar};
@@ -13,8 +13,9 @@ use web_portal_lite_core::verify_hashed_password;
 pub fn index(
     flash: Option<FlashMessage<'_>>,
     cookies: &CookieJar<'_>,
+    server_config: &State<ServerConfig>,
     user_config: &State<UserConfig>,
-) -> Template {
+) -> Result<Template, Flash<Redirect>> {
     let is_authenticated;
     let dashboard: &Vec<UserConfigDashboard>;
     let empty_dashboard = vec![];
@@ -22,32 +23,33 @@ pub fn index(
     match ensure_authenticated(cookies, &user_config.accounts) {
         Ok(username) => {
             is_authenticated = true;
-            dashboard = match user_config
-                .accounts
-                .get(&username)
-                .unwrap()
-                .dashboard
-                .as_ref()
-            {
-                Some(v) => v,
-                None => empty_dashboard.as_ref(),
-            };
+            dashboard = get_user_dashboard_or_default(user_config, &empty_dashboard, &username);
         }
         Err(_) => {
-            // TODO implement public dashboard
+            // Check if login is required to access portal
+            if user_config.public_dash == false {
+                return Err(Flash::error(
+                    Redirect::to(uri!(get_login)),
+                    "login is required to access this portal",
+                ));
+            }
             is_authenticated = false;
-            dashboard = empty_dashboard.as_ref();
+            dashboard = get_user_dashboard_or_default(
+                user_config,
+                &empty_dashboard,
+                &server_config.public_dash_username,
+            );
         }
     };
 
-    Template::render(
+    Ok(Template::render(
         "index",
         context!(
             flashed_message: flash,
             is_authenticated: is_authenticated,
             dashboard: dashboard
         ),
-    )
+    ))
 }
 
 #[get("/icons/<icon_name>")]

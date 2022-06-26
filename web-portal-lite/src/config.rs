@@ -8,6 +8,7 @@ pub const CURRENT_USER_CONFIG_VER: usize = 1;
 pub struct ServerConfig {
     pub config_path: PathBuf,
     pub icons_path: PathBuf,
+    pub public_dash_username: String,
 }
 
 #[derive(Debug, Deserialize, Serialize)]
