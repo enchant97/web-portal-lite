@@ -23,13 +23,14 @@ Before starting the server certain configs need to be set which are given as env
 
 > All environment variables must be UPPER CASE
 
-| Name        | Description                          | Default           |
-| :---------- | :----------------------------------- | :---------------- |
-| CONFIG_PATH | Where the dashboard config lives     | ./data/config.yml |
-| ICONS_PATH  | Where icons will be stored           | ./data/icons      |
-| SECRET_KEY  | Secure 256-bit base64 encoded string |                   |
-| ADDRESS     | What address to bind to              | 0.0.0.0           |
-| PORT        | What port to use for bind            | 8000              |
+| Name                 | Description                                                               | Default           |
+| :------------------- | :------------------------------------------------------------------------ | :---------------- |
+| CONFIG_PATH          | Where the dashboard config lives                                          | ./data/config.yml |
+| ICONS_PATH           | Where icons will be stored                                                | ./data/icons      |
+| PUBLIC_DASH_USERNAME | The public dashboard username, only used when public dashboard is enabled | public            |
+| SECRET_KEY           | Secure 256-bit base64 encoded string                                      |                   |
+| ADDRESS              | What address to bind to                                                   | 0.0.0.0           |
+| PORT                 | What port to use for bind                                                 | 8000              |
 
 > Openssl can be used to generate a secret key: `openssl rand -base64 32`
 
