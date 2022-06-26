@@ -81,11 +81,20 @@ pub struct UserLoginForm {
 #[post("/auth/login", data = "<login_form>")]
 pub fn post_login(
     cookies: &CookieJar<'_>,
+    server_config: &State<ServerConfig>,
     user_config: &State<UserConfig>,
     login_form: Form<Strict<UserLoginForm>>,
 ) -> Result<Redirect, Flash<Redirect>> {
     // FIXME remove unwrap use here
     let username = login_form.username.to_string();
+
+    // ensure username is not the public virtual account when public mode is on
+    if username == server_config.public_dash_username && user_config.public_dash == true {
+        return Err(Flash::error(
+            Redirect::to(uri!(get_login)),
+            "login to this account is not allowed",
+        ));
+    }
 
     match user_config.accounts.get(&username) {
         Some(user) => {
