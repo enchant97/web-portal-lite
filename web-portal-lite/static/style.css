@@ -37,6 +37,26 @@
     }
 }
 
+[data-theme=dark]:root {
+    color-scheme: dark;
+    --font-dark: var(--font-dark--dark);
+    --font-light: var(--font-dark--dark);
+    --bg-bnt: var(--bg-bnt--dark);
+    --bg-body: var(--bg-body--dark);
+    --bg-sub: var(--bg-sub--dark);
+
+}
+
+[data-theme=light]:root {
+    color-scheme: light;
+    --font-dark: var(--font-dark--light);
+    --font-light: var(--font-light--light);
+    --bg-bnt: var(--bg-bnt--light);
+    --bg-body: var(--bg-body--light);
+    --bg-sub: var(--bg-sub--light);
+
+}
+
 footer,
 header,
 input,
@@ -223,6 +243,10 @@ footer a {
 .login img {
     max-width: 200px;
     margin: auto;
+}
+
+.hidden {
+    display: none;
 }
 
 @media(max-width:500px) {

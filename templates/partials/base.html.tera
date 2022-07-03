@@ -12,6 +12,8 @@
         rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="/static/colors.css">
+    <script src="/static/theme-changer.min.js"></script>
+    <script src="/static/script.js" defer></script>
 </head>
 
 <body>
@@ -23,6 +25,8 @@
             {% else %}
             <a href="/auth/login">{{ macros::feather_img(icon_name='log-in') }}Log In</a>
             {% endif %}
+            <button class="hidden" id="themeToggleBnt" title="Theme Picker">{{ macros::feather_img(icon_name='sun') }}|{{
+                macros::feather_img(icon_name='moon') }}</button>
         </nav>
     </header>
     {% if flashed_message %}
