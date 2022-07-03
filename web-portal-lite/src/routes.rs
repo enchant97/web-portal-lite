@@ -27,7 +27,7 @@ pub fn index(
             }
             Err(_) => {
                 // Check if login is required to access portal
-                if user_config.public_dash {
+                if !user_config.public_dash {
                     return Err(Flash::error(
                         Redirect::to(uri!(get_login)),
                         "login is required to access this portal",
@@ -115,7 +115,11 @@ pub fn post_login(
 }
 
 #[get("/auth/logout")]
-pub fn get_logout(cookies: &CookieJar<'_>) -> Flash<Redirect> {
+pub fn get_logout(cookies: &CookieJar<'_>, user_config: &State<UserConfig>) -> Flash<Redirect> {
     cookies.remove_private(Cookie::named("AUTH"));
-    Flash::success(Redirect::to(uri!(index)), "you have been logged out")
+
+    match user_config.public_dash {
+        true => Flash::success(Redirect::to(uri!(index)), "you have been logged out"),
+        false => Flash::success(Redirect::to(uri!(get_login)), "you have been logged out"),
+    }
 }
