@@ -36,7 +36,7 @@
         {% block content %}{% endblock content %}
     </main>
     <footer>
-        Running Web-Portal-Lite.
+        Running Web-Portal-Lite, provided by <strong><a href="https://github.com/enchant97">enchant97</a></strong>
     </footer>
 </body>
 
