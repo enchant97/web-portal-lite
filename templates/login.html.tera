@@ -5,9 +5,9 @@
 <form class="login" action="/auth/login" method="post">
     <img src="/static/icon-256.png" alt="app icon">
     <label for="username">Username</label>
-    <input type="text" name="username" id="username" required>
+    <input type="text" name="username" id="username" placeholder="username..." required>
     <label for="password">Password</label>
-    <input type="password" name="password" id="password" required>
+    <input type="password" name="password" id="password" placeholder="password..." required>
     <button type="submit">Login</button>
 </form>
 {% endblock content %}
