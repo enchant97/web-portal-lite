@@ -7,16 +7,15 @@
 
     --font-dark--light: var(--font-dark-no-adjust);
     --font-light--light: #f0f0f0;
-    --bg-bnt--light: #adadad;
     --bg-body--light: #9299a5;
-    --bg-sub--light: #848a94;
+    --bg-sub--light: #7b828f;
+    --bg-bnt--light: #aaaeb5;
 
     --font-dark--dark: var(--font-light--dark);
     --font-light--dark: #bcbcbc;
-    --bg-bnt--dark: #024f61;
     --bg-body--dark: #002b36;
-    --bg-sub--dark: #083b47;
-
+    --bg-sub--dark: #073642;
+    --bg-bnt--dark: #0c414f;
 
     color-scheme: light;
     --font-dark: var(--font-dark--light);
@@ -31,9 +30,9 @@
         color-scheme: dark;
         --font-dark: var(--font-dark--dark);
         --font-light: var(--font-dark--dark);
-        --bg-bnt: var(--bg-bnt--dark);
         --bg-body: var(--bg-body--dark);
         --bg-sub: var(--bg-sub--dark);
+        --bg-bnt: var(--bg-bnt--dark);
     }
 }
 
@@ -41,9 +40,9 @@
     color-scheme: dark;
     --font-dark: var(--font-dark--dark);
     --font-light: var(--font-dark--dark);
-    --bg-bnt: var(--bg-bnt--dark);
     --bg-body: var(--bg-body--dark);
     --bg-sub: var(--bg-sub--dark);
+    --bg-bnt: var(--bg-bnt--dark);
 
 }
 
@@ -51,9 +50,9 @@
     color-scheme: light;
     --font-dark: var(--font-dark--light);
     --font-light: var(--font-light--light);
-    --bg-bnt: var(--bg-bnt--light);
     --bg-body: var(--bg-body--light);
     --bg-sub: var(--bg-sub--light);
+    --bg-bnt: var(--bg-bnt--light);
 
 }
 
