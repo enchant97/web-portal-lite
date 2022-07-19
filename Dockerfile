@@ -3,7 +3,7 @@ ARG DOCKER_ARCH_TAG=x86_64-musl
 # should be: x86_64-unknown-linux-musl, aarch64-unknown-linux-musl
 ARG RUST_ARCH_TARGET=x86_64-unknown-linux-musl
 
-FROM blackdex/rust-musl:${ARCH_TAG}-stable as builder
+FROM blackdex/rust-musl:${DOCKER_ARCH_TAG}-stable as builder
 
     WORKDIR /usr/src/app
 
