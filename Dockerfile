@@ -18,8 +18,8 @@ FROM alpine:3.16.0
 
     WORKDIR /app
 
-    COPY --from=builder /usr/src/app/target/$RUST_ARCH_TARGET/release/web_portal_lite .
-    COPY --from=builder /usr/src/app/target/$RUST_ARCH_TARGET/release/web_portal_lite_cli .
+    COPY --from=builder /usr/src/app/target/${RUST_ARCH_TARGET}/release/web_portal_lite .
+    COPY --from=builder /usr/src/app/target/${RUST_ARCH_TARGET}/release/web_portal_lite_cli .
 
     COPY Rocket.toml .
     COPY web-portal-lite/static /usr/src/app/web-portal-lite/static
