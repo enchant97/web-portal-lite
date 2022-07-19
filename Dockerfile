@@ -1,28 +1,25 @@
-FROM rust:1.61-slim-bullseye as builder
+# should be: x86_64-musl, aarch64-musl
+ARG DOCKER_ARCH_TAG=x86_64-musl
+# should be: x86_64-unknown-linux-musl, aarch64-unknown-linux-musl
+ARG RUST_ARCH_TARGET=x86_64-unknown-linux-musl
 
-    # must be x86_64-unknown-linux-musl or aarch64-unknown-linux-musl
-    ARG BUILD_TARGET=x86_64-unknown-linux-musl
+FROM blackdex/rust-musl:$ARCH_TAG-stable as builder
 
     WORKDIR /usr/src/app
-
-    RUN rustup target add $BUILD_TARGET
 
     COPY Cargo.toml Cargo.toml
     COPY web-portal-lite web-portal-lite
     COPY web-portal-lite-cli web-portal-lite-cli
     COPY web-portal-lite-core web-portal-lite-core
 
-    RUN cargo build --target $BUILD_TARGET --release
+    RUN cargo build --release
 
-    RUN cargo install --target $BUILD_TARGET --path ./web-portal-lite
-    RUN cargo install --target $BUILD_TARGET --path ./web-portal-lite-cli
-
-FROM alpine:3.16.0 as runtime
+FROM alpine:3.16.0
 
     WORKDIR /app
 
-    COPY --from=builder /usr/local/cargo/bin/web_portal_lite .
-    COPY --from=builder /usr/local/cargo/bin/web_portal_lite_cli .
+    COPY --from=builder /usr/src/app/target/$RUST_ARCH_TARGET/release/web_portal_lite .
+    COPY --from=builder /usr/src/app/target/$RUST_ARCH_TARGET/release/web_portal_lite_cli .
 
     COPY Rocket.toml .
     COPY web-portal-lite/static /usr/src/app/web-portal-lite/static
