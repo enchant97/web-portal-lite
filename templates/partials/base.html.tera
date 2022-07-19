@@ -20,6 +20,7 @@
     <header>
         <h1>Portal</h1>
         <nav>
+            <a href="/" title="Home">{{ macros::feather_img(icon_name='home') }}</a>
             {% if is_authenticated %}
             <a href="/auth/logout">{{ macros::feather_img(icon_name='log-out') }}Log Out</a>
             {% else %}
