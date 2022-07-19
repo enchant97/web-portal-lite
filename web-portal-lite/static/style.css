@@ -127,7 +127,7 @@ header nav button {
     text-decoration: none;
     color: var(--font-dark);
     padding: .7rem 1.2rem;
-    background-color: var(--bg-sub);
+    background-color: var(--bg-bnt);
     border-radius: var(--border-radius);
     border-style: none;
     margin: 0;
@@ -212,6 +212,10 @@ footer a {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.dashboard .group .links.compact .link {
+    padding: 1rem;
 }
 
 .dashboard .group .links .link:hover {

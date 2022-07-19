@@ -23,6 +23,7 @@ pub struct UserConfigLink {
 pub struct UserConfigDashboard {
     pub title: String,
     pub show_header: bool,
+    pub compact: bool,
     pub links: Vec<UserConfigLink>,
 }
 

@@ -9,7 +9,7 @@
         {% if group.show_header %}
         <h2 class="heading">{{ group.title }}</h2>
         {% endif %}
-        <div class="links">
+        <div class="links{%- if group.compact %} compact{%- endif -%}">
             {% for link in group.links %}
             <a class="link {{ link.color_name }}" href="{{ link.href }}" rel="noopener noreferrer"
                 aria-label="{{ link.title }}">

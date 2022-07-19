@@ -47,6 +47,7 @@ accounts:
     dashboard:
       -
         title: "My Group"
+        compact: false
         show_header: true
         links:
           -
