@@ -82,4 +82,10 @@ $ hashed password: $argon2id$...
 Once you have the hash just copy it into the password field in the config.
 
 ## License
-Copyright (c) 2022 Leo Spratt licenced under AGPL-3, the licence can be found in: `LICENSE.txt`. This project also uses some third-party code, licenses for those can be found at: `LICENSE-THIRD-PARTY.txt`.
+This project is Copyright (c) 2022 Leo Spratt, licences shown below:
+
+Code
+
+    AGPL-3 or any later version. Full license found in `LICENSE.txt`
+
+This project also uses some third party content, licences for those are found at: `THIRD-PARTY.txt`.
