@@ -1,6 +1,6 @@
 use rocket::fairing::AdHoc;
 use rocket::fs::{relative, FileServer};
-use rocket::{launch, routes};
+use rocket::{catchers, launch, routes};
 use rocket_dyn_templates::Template;
 
 mod config;
@@ -20,6 +20,7 @@ fn rocket() -> _ {
                 routes::get_logout,
             ],
         )
+        .register("/", catchers![routes::catch_unauthorized])
         .mount("/static", routes!(routes::get_icon))
         .mount("/static", FileServer::from(relative!("static/")))
         .attach(AdHoc::config::<config::ServerConfig>());

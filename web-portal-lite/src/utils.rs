@@ -1,8 +1,11 @@
+use crate::config::ServerConfig;
 use crate::config::{
     UserConfig, UserConfigAccount, UserConfigBase, UserConfigDashboard, CURRENT_USER_CONFIG_VER,
 };
 use rocket::fs::NamedFile;
 use rocket::http::CookieJar;
+use rocket::http::Status;
+use rocket::request::{self, FromRequest, Outcome, Request};
 use std::collections::HashMap;
 use std::fs::File;
 use std::io::BufReader;
@@ -99,5 +102,46 @@ pub fn get_user_dashboard_or_default<'conf>(
             None => default_dashboard,
         },
         None => default_dashboard,
+    }
+}
+
+/// Authenticated user for the request
+pub struct User {
+    pub username: String,
+    pub is_public_acc: bool,
+}
+
+#[rocket::async_trait]
+impl<'r> FromRequest<'r> for User {
+    type Error = ();
+
+    async fn from_request(req: &'r Request<'_>) -> request::Outcome<Self, ()> {
+        let server_config = req
+            .rocket()
+            .state::<ServerConfig>()
+            .map(|server_config| server_config);
+        let user_config = req
+            .rocket()
+            .state::<UserConfig>()
+            .map(|user_config| user_config);
+
+        match (server_config, user_config) {
+            (Some(s_config), Some(u_config)) => {
+                match ensure_authenticated(req.cookies(), &u_config.accounts) {
+                    Ok(username) => Outcome::Success(User {
+                        username: username,
+                        is_public_acc: false,
+                    }),
+                    Err(_) => match u_config.public_dash {
+                        true => Outcome::Success(User {
+                            username: s_config.public_dash_username.clone(),
+                            is_public_acc: true,
+                        }),
+                        false => Outcome::Failure((Status::Unauthorized, ())),
+                    },
+                }
+            }
+            (_, _) => Outcome::Failure((Status::InternalServerError, ())),
+        }
     }
 }

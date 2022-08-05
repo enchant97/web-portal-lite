@@ -1,46 +1,31 @@
 use crate::config::{ServerConfig, UserConfig, UserConfigDashboard};
-use crate::utils::{ensure_authenticated, get_user_dashboard_or_default, load_named_icon};
+use crate::utils::{ensure_authenticated, get_user_dashboard_or_default, load_named_icon, User};
 use rocket::form::{Form, FromForm, Strict};
 use rocket::fs::NamedFile;
 use rocket::http::{Cookie, CookieJar};
 use rocket::request::FlashMessage;
 use rocket::response::{Flash, Redirect};
-use rocket::{get, post, uri, State};
+use rocket::{catch, get, post, uri, State};
 use rocket_dyn_templates::{context, Template};
 use web_portal_lite_core::verify_hashed_password;
 
 #[get("/")]
 pub fn index(
     flash: Option<FlashMessage<'_>>,
-    cookies: &CookieJar<'_>,
     server_config: &State<ServerConfig>,
     user_config: &State<UserConfig>,
+    user: User,
 ) -> Result<Template, Flash<Redirect>> {
-    let is_authenticated;
     let empty_dashboard = vec![];
-
-    let dashboard: &Vec<UserConfigDashboard> =
-        match ensure_authenticated(cookies, &user_config.accounts) {
-            Ok(username) => {
-                is_authenticated = true;
-                get_user_dashboard_or_default(user_config, &empty_dashboard, &username)
-            }
-            Err(_) => {
-                // Check if login is required to access portal
-                if !user_config.public_dash {
-                    return Err(Flash::error(
-                        Redirect::to(uri!(get_login)),
-                        "login is required to access this portal",
-                    ));
-                }
-                is_authenticated = false;
-                get_user_dashboard_or_default(
-                    user_config,
-                    &empty_dashboard,
-                    &server_config.public_dash_username,
-                )
-            }
-        };
+    let is_authenticated = !user.is_public_acc;
+    let dashboard: &Vec<UserConfigDashboard> = match is_authenticated {
+        true => get_user_dashboard_or_default(user_config, &empty_dashboard, &user.username),
+        false => get_user_dashboard_or_default(
+            user_config,
+            &empty_dashboard,
+            &server_config.public_dash_username,
+        ),
+    };
 
     Ok(Template::render(
         "index",
@@ -85,7 +70,6 @@ pub fn post_login(
     user_config: &State<UserConfig>,
     login_form: Form<Strict<UserLoginForm>>,
 ) -> Result<Redirect, Flash<Redirect>> {
-    // FIXME remove unwrap use here
     let username = login_form.username.to_string();
 
     // ensure username is not the public virtual account when public mode is on
@@ -122,4 +106,12 @@ pub fn get_logout(cookies: &CookieJar<'_>, user_config: &State<UserConfig>) -> F
         true => Flash::success(Redirect::to(uri!(index)), "you have been logged out"),
         false => Flash::success(Redirect::to(uri!(get_login)), "you have been logged out"),
     }
+}
+
+#[catch(401)]
+pub fn catch_unauthorized() -> Flash<Redirect> {
+    Flash::error(
+        Redirect::to(uri!(get_login)),
+        "login is required to access this portal",
+    )
 }
