@@ -116,20 +116,14 @@ impl<'r> FromRequest<'r> for User {
     type Error = ();
 
     async fn from_request(req: &'r Request<'_>) -> request::Outcome<Self, ()> {
-        let server_config = req
-            .rocket()
-            .state::<ServerConfig>()
-            .map(|server_config| server_config);
-        let user_config = req
-            .rocket()
-            .state::<UserConfig>()
-            .map(|user_config| user_config);
+        let server_config = req.rocket().state::<ServerConfig>();
+        let user_config = req.rocket().state::<UserConfig>();
 
         match (server_config, user_config) {
             (Some(s_config), Some(u_config)) => {
                 match ensure_authenticated(req.cookies(), &u_config.accounts) {
                     Ok(username) => Outcome::Success(User {
-                        username: username,
+                        username,
                         is_public_acc: false,
                     }),
                     Err(_) => match u_config.public_dash {
