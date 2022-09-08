@@ -1,7 +1,10 @@
 # Web Portal Lite
+![GitHub](https://img.shields.io/github/license/enchant97/web-portal-lite?style=flat-square)
+![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/enchant97/web-portal-lite?include_prereleases&label=latest%20release&style=flat-square)
+
 Web Portal Lite is a web dashboard to manage a page of links. It offers a minimal feature set to the feature rich [Web Portal](https://github.com/enchant97/web-portal). Designed for users who just want to create a fancy looking links page and not worry about the advanced features.
 
-> This app is still in early development, DO NOT use for production. Maybe checkout the normal version at: <https://github.com/enchant97/web-portal>.
+It has been designed to run through docker and it is recommended to put it behind a proxy like Nginx for custom routing and domain names.
 
 ## Features
 - Access a grid of beautiful links to your web services
@@ -16,7 +19,7 @@ Web Portal Lite is a web dashboard to manage a page of links. It offers a minima
 - Lightweight Docker image (uses scratch)
 
 ## Docs
-Docs are located in the [/docs](docs/index.md) directory.
+Docs are located in the [/docs](docs/index.md) directory or at: <https://docs.enchantedcode.co.uk/web-portal-lite/>.
 
 ## License
 This project is Copyright (c) 2022 Leo Spratt, licences shown below:
