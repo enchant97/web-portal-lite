@@ -18,6 +18,9 @@ Web Portal Lite is a web dashboard to manage a page of links. It offers a minima
 
 > If this feature set is too limited check out [Web Portal](https://github.com/enchant97/web-portal).
 
+## Showcase
+[![web-portal-lite showcase image, showing dark and light themes](assets/showcase.png)](assets/showcase.png)
+
 ## Contents
 - [Install](install.md)
 - [Usage](usage.md)

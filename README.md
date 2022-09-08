@@ -18,6 +18,10 @@ It has been designed to run through docker and it is recommended to put it behin
 - Dark/Light mode
 - Lightweight Docker image (uses scratch)
 
+## Showcase
+[![web-portal-lite showcase image, showing dark and light themes](docs/assets/showcase.png)](docs/assets/showcase.png)
+
+
 ## Docs
 Docs are located in the [/docs](docs/index.md) directory or at: <https://docs.enchantedcode.co.uk/web-portal-lite/>.
 
