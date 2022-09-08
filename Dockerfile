@@ -22,6 +22,9 @@ FROM scratch
     COPY web-portal-lite/static /usr/src/app/web-portal-lite/static
     COPY templates /usr/src/app/web-portal-lite/templates
 
+    COPY LICENSE.txt .
+    COPY THIRD-PARTY.txt .
+
     EXPOSE 8000
     ENV ROCKET_CONFIG_PATH=/app/config.yml
     ENV ROCKET_ICONS_PATH=/app/icons
@@ -30,4 +33,3 @@ FROM scratch
     ENV ROCKET_TEMPLATE_DIR=/usr/src/app/web-portal-lite/templates
 
     CMD ["./web_portal_lite"]
-
