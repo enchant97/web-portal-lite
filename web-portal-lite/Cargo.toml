@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 web_portal_lite_core = { path="../web-portal-lite-core" }
 serde = "1.0"
-serde_yaml= "0.8"
+serde_yaml= "0.9"
 
 [dependencies.rocket]
 version = "0.5.0-rc.2"
