@@ -26,7 +26,8 @@
             {% else %}
             <a href="/auth/login">{{ macros::feather_img(icon_name='log-in') }}Log In</a>
             {% endif %}
-            <button class="hidden" id="themeToggleBnt" title="Theme Picker">{{ macros::feather_img(icon_name='sun') }}|{{
+            <button class="hidden" id="themeToggleBnt" title="Theme Picker">{{ macros::feather_img(icon_name='sun')
+                }}|{{
                 macros::feather_img(icon_name='moon') }}</button>
         </nav>
     </header>
@@ -37,7 +38,7 @@
         {% block content %}{% endblock content %}
     </main>
     <footer>
-        Running Web-Portal-Lite, provided by <strong><a href="https://github.com/enchant97">enchant97</a></strong>
+        Powered by <strong><a href="https://github.com/enchant97/web-portal-lite">Web Portal Lite</a></strong>
     </footer>
 </body>
 
