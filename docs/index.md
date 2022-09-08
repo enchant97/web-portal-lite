@@ -20,4 +20,5 @@ Web Portal Lite is a web dashboard to manage a page of links. It offers a minima
 
 ## Contents
 - [Install](install.md)
+- [Usage](usage.md)
 - [Contributing](contributing.md)
