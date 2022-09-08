@@ -208,6 +208,8 @@ footer a {
     text-align: center;
     box-shadow: 4px 4px 0px black;
     word-wrap: break-word;
+    border-top: 1px solid black;
+    border-left: 1px solid black;
     /* for icon based links */
     display: flex;
     justify-content: center;
@@ -290,6 +292,12 @@ footer a {
 @media(max-width:640px) {
     .dashboard .group .links {
         grid-template-columns: repeat(2, 200px);
+    }
+}
+
+@media(max-width:500px) {
+    .widget-inner.core__links a {
+        padding: 2rem 1rem;
     }
 }
 
