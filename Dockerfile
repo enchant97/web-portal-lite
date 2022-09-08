@@ -1,9 +1,6 @@
-# should be: x86_64-musl, aarch64-musl
-ARG DOCKER_ARCH_TAG=x86_64-musl
-# should be: x86_64-unknown-linux-musl, aarch64-unknown-linux-musl
-ARG RUST_ARCH_TARGET=x86_64-unknown-linux-musl
+# syntax=docker/dockerfile:1.4
 
-FROM blackdex/rust-musl:${DOCKER_ARCH_TAG}-stable as builder
+FROM blackdex/rust-musl:x86_64-musl-stable as builder
 
     WORKDIR /usr/src/app
 
@@ -14,12 +11,12 @@ FROM blackdex/rust-musl:${DOCKER_ARCH_TAG}-stable as builder
 
     RUN cargo build --release
 
-FROM alpine:3.16.0
+FROM scratch
 
     WORKDIR /app
 
-    COPY --from=builder /usr/src/app/target/${RUST_ARCH_TARGET}/release/web_portal_lite .
-    COPY --from=builder /usr/src/app/target/${RUST_ARCH_TARGET}/release/web_portal_lite_cli .
+    COPY --from=builder --link /usr/src/app/target/x86_64-unknown-linux-musl/release/web_portal_lite .
+    COPY --from=builder --link /usr/src/app/target/x86_64-unknown-linux-musl/release/web_portal_lite_cli .
 
     COPY Rocket.toml .
     COPY web-portal-lite/static /usr/src/app/web-portal-lite/static
@@ -32,4 +29,5 @@ FROM alpine:3.16.0
     ENV ROCKET_PORT=8000
     ENV ROCKET_TEMPLATE_DIR=/usr/src/app/web-portal-lite/templates
 
-    CMD ./web_portal_lite
+    CMD ["./web_portal_lite"]
+
