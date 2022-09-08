@@ -23,7 +23,7 @@ It has been designed to run through docker and it is recommended to put it behin
 
 
 ## Docs
-Docs are located in the [/docs](docs/index.md) directory or at: <https://docs.enchantedcode.co.uk/web-portal-lite/>.
+Docs are located in the [/docs](docs/index.md) directory or at: <https://enchantedcode.co.uk/web-portal-lite/>.
 
 ## License
 This project is Copyright (c) 2022 Leo Spratt, licences shown below:
