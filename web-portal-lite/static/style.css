@@ -104,16 +104,17 @@ body {
     background-color: var(--bg-body);
     max-width: 1000px;
     margin: auto;
-    padding: 1rem;
+    padding: .5rem 1rem;
 }
 
 header {
     display: flex;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: .4rem;
 }
 
 header h1 {
+    margin: 0;
     margin-right: auto;
 }
 
@@ -201,7 +202,7 @@ footer a {
 
 .dashboard .group .links .link {
     border-radius: var(--border-radius);
-    padding: 3rem;
+    padding: 2.5rem 1.4rem;
     text-decoration: none;
     font-family: var(--font-family-title);
     font-size: 1.5rem;
@@ -212,7 +213,7 @@ footer a {
     border-left: 1px solid black;
     /* for icon based links */
     display: flex;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
 }
 
@@ -227,6 +228,7 @@ footer a {
 }
 
 .dashboard .group .links .link img {
+    margin-right: .5rem;
     width: 3rem;
     height: 3rem;
     object-fit: contain;
@@ -276,6 +278,12 @@ footer a {
     padding: 1rem 2rem;
 }
 
+@media(max-width:640px) {
+    .dashboard .group .links {
+        grid-template-columns: repeat(2, 200px);
+    }
+}
+
 @media(max-width:500px) {
 
     header,
@@ -285,23 +293,9 @@ footer a {
     }
 
     .dashboard .group .links .link {
-        padding: 2rem 1rem;
+        padding: 1rem;
     }
-}
 
-@media(max-width:640px) {
-    .dashboard .group .links {
-        grid-template-columns: repeat(2, 200px);
-    }
-}
-
-@media(max-width:500px) {
-    .widget-inner.core__links a {
-        padding: 2rem 1rem;
-    }
-}
-
-@media(max-width:490px) {
     .dashboard .group .links {
         grid-template-columns: 100%;
     }
