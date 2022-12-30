@@ -86,10 +86,10 @@ pub fn post_login(
                 cookies.add_private(Cookie::new("AUTH", username));
                 return Ok(Redirect::to(uri!(index)));
             }
-            return Err(Flash::error(
+            Err(Flash::error(
                 Redirect::to(uri!(get_login)),
                 "username or password invalid",
-            ));
+            ))
         }
         None => Err(Flash::error(
             Redirect::to(uri!(get_login)),
