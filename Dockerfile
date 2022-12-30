@@ -15,8 +15,8 @@ FROM scratch
 
     WORKDIR /app
 
-    COPY --from=builder --link /usr/src/app/target/x86_64-unknown-linux-musl/release/web_portal_lite .
-    COPY --from=builder --link /usr/src/app/target/x86_64-unknown-linux-musl/release/web_portal_lite_cli .
+    COPY --from=builder --link /usr/src/app/target/x86_64-unknown-linux-musl/release/web-portal-lite .
+    COPY --from=builder --link /usr/src/app/target/x86_64-unknown-linux-musl/release/web-portal-lite-cli .
 
     COPY Rocket.toml .
     COPY web-portal-lite/static /usr/src/app/web-portal-lite/static
@@ -32,4 +32,4 @@ FROM scratch
     ENV ROCKET_PORT=8000
     ENV ROCKET_TEMPLATE_DIR=/usr/src/app/web-portal-lite/templates
 
-    CMD ["./web_portal_lite"]
+    CMD ["./web-portal-lite"]

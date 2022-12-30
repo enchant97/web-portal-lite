@@ -1,5 +1,5 @@
 [package]
-name = "web_portal_lite_core"
+name = "web-portal-lite-core"
 version = "1.0.0"
 edition = "2021"
 

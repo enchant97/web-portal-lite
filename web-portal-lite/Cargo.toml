@@ -1,10 +1,10 @@
 [package]
-name = "web_portal_lite"
+name = "web-portal-lite"
 version = "1.0.0"
 edition = "2021"
 
 [dependencies]
-web_portal_lite_core = { path="../web-portal-lite-core" }
+web-portal-lite-core = { path="../web-portal-lite-core" }
 serde = "1.0"
 serde_yaml= "0.9"
 

@@ -85,7 +85,7 @@ A popular repository for getting these icons is at: <https://github.com/walkxcod
 To hash a password for the config there is a built in tool which can be accessed like shown below:
 
 ```
-docker exec -it <container name> ./web_portal_lite_cli pw-hasher
+docker exec -it <container name> ./web-portal-lite-cli pw-hasher
 enter password: <password>
 hashed password: $argon2id$...
 ```
