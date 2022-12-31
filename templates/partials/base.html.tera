@@ -20,11 +20,13 @@
     <header>
         <h1>Portal</h1>
         <nav>
+            {% if has_users %}
             <a href="/" title="Home">{{ macros::feather_img(icon_name='home') }}</a>
             {% if is_authenticated %}
             <a href="/auth/logout">{{ macros::feather_img(icon_name='log-out') }}Log Out</a>
             {% else %}
             <a href="/auth/login">{{ macros::feather_img(icon_name='log-in') }}Log In</a>
+            {% endif %}
             {% endif %}
             <button class="hidden" id="themeToggleBnt" title="Theme Picker">{{ macros::feather_img(icon_name='sun')
                 }}|{{

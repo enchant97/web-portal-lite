@@ -44,3 +44,15 @@ pub struct UserConfig {
     pub public_dash: bool,
     pub accounts: HashMap<String, UserConfigAccount>,
 }
+
+impl UserConfig {
+    /// Check whether any accounts are available (excluding public virtual)
+    pub fn has_users(&self, public_username: &String) -> bool {
+        if self.accounts.is_empty()
+            || (self.accounts.len() == 1 && self.accounts.contains_key(public_username))
+        {
+            return false;
+        }
+        true
+    }
+}

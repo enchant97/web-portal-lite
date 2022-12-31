@@ -35,6 +35,7 @@ pub fn index(
         "index",
         context!(
             flashed_message: flash,
+            has_users: user_config.has_users(&server_config.public_dash_username),
             is_authenticated: is_authenticated,
             dashboard: dashboard
         ),
@@ -50,6 +51,7 @@ pub async fn get_icon(icon_name: &str, config: &State<ServerConfig>) -> Option<N
 pub fn get_login(
     flash: Option<FlashMessage<'_>>,
     cookies: &CookieJar<'_>,
+    server_config: &State<ServerConfig>,
     user_config: &State<UserConfig>,
 ) -> Result<Template, FlashedRedirect> {
     match ensure_authenticated(cookies, &user_config.accounts).is_ok() {
@@ -57,7 +59,13 @@ pub fn get_login(
             Redirect::to(uri!(index)),
             "you can't login while already logged in",
         )),
-        false => Ok(Template::render("login", context!(flashed_message: flash))),
+        false => Ok(Template::render(
+            "login",
+            context!(
+                has_users: user_config.has_users(&server_config.public_dash_username),
+                flashed_message: flash,
+            ),
+        )),
     }
 }
 
