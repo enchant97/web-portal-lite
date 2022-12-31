@@ -120,7 +120,7 @@ header h1 {
 
 header nav {
     display: flex;
-    gap: 10px;
+    gap: .6rem;
 }
 
 header nav a,
@@ -196,8 +196,7 @@ footer a {
 .dashboard .group .links {
     display: grid;
     grid-template-columns: repeat(3, 32%);
-    justify-content: center;
-    gap: 10px;
+    gap: .6rem;
 }
 
 .dashboard .group .links .link {
@@ -229,9 +228,14 @@ footer a {
 
 .dashboard .group .links .link img {
     margin-right: .5rem;
-    width: 3rem;
-    height: 3rem;
+    width: 2.5rem;
+    height: 2.5rem;
     object-fit: contain;
+}
+
+.dashboard .group .links.compact .link img {
+    width: 2rem;
+    height: 2rem;
 }
 
 .login {
