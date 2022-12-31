@@ -1,3 +1,5 @@
+// this hides warning when Flash<Redirect> is used (issue with rocket?)
+#![allow(clippy::result_large_err)]
 use crate::config::{ServerConfig, UserConfig, UserConfigDashboard};
 use crate::utils::{ensure_authenticated, get_user_dashboard_or_default, load_named_icon, User};
 use rocket::form::{Form, FromForm, Strict};
@@ -9,13 +11,15 @@ use rocket::{catch, get, post, uri, State};
 use rocket_dyn_templates::{context, Template};
 use web_portal_lite_core::verify_hashed_password;
 
+pub type FlashedRedirect = Flash<Redirect>;
+
 #[get("/")]
 pub fn index(
     flash: Option<FlashMessage<'_>>,
     server_config: &State<ServerConfig>,
     user_config: &State<UserConfig>,
     user: User,
-) -> Result<Template, Flash<Redirect>> {
+) -> Result<Template, FlashedRedirect> {
     let empty_dashboard = vec![];
     let is_authenticated = !user.is_public_acc;
     let dashboard: &Vec<UserConfigDashboard> = match is_authenticated {
@@ -47,7 +51,7 @@ pub fn get_login(
     flash: Option<FlashMessage<'_>>,
     cookies: &CookieJar<'_>,
     user_config: &State<UserConfig>,
-) -> Result<Template, Flash<Redirect>> {
+) -> Result<Template, FlashedRedirect> {
     match ensure_authenticated(cookies, &user_config.accounts).is_ok() {
         true => Err(Flash::warning(
             Redirect::to(uri!(index)),
@@ -69,7 +73,7 @@ pub fn post_login(
     server_config: &State<ServerConfig>,
     user_config: &State<UserConfig>,
     login_form: Form<Strict<UserLoginForm>>,
-) -> Result<Redirect, Flash<Redirect>> {
+) -> Result<Redirect, FlashedRedirect> {
     let username = login_form.username.to_string();
 
     // ensure username is not the public virtual account when public mode is on
@@ -99,7 +103,7 @@ pub fn post_login(
 }
 
 #[get("/auth/logout")]
-pub fn get_logout(cookies: &CookieJar<'_>, user_config: &State<UserConfig>) -> Flash<Redirect> {
+pub fn get_logout(cookies: &CookieJar<'_>, user_config: &State<UserConfig>) -> FlashedRedirect {
     cookies.remove_private(Cookie::named("AUTH"));
 
     match user_config.public_dash {
@@ -109,7 +113,7 @@ pub fn get_logout(cookies: &CookieJar<'_>, user_config: &State<UserConfig>) -> F
 }
 
 #[catch(401)]
-pub fn catch_unauthorized() -> Flash<Redirect> {
+pub fn catch_unauthorized() -> FlashedRedirect {
     Flash::error(
         Redirect::to(uri!(get_login)),
         "login is required to access this portal",
