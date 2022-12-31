@@ -9,8 +9,6 @@ FROM blackdex/rust-musl:x86_64-musl-stable as builder
     COPY web-portal-lite-cli web-portal-lite-cli
     COPY web-portal-lite-core web-portal-lite-core
 
-    RUN cargo build --release
-
     RUN cargo install --path web-portal-lite-cli --root /out
     RUN cargo install --path web-portal-lite --root /out
 
