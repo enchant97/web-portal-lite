@@ -195,6 +195,7 @@ footer a {
 
 .dashboard .group .links {
     display: grid;
+    justify-content: center;
     grid-template-columns: repeat(3, 32%);
     gap: .6rem;
 }
