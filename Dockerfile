@@ -11,12 +11,15 @@ FROM blackdex/rust-musl:x86_64-musl-stable as builder
 
     RUN cargo build --release
 
+    RUN cargo install --path web-portal-lite-cli --root /out
+    RUN cargo install --path web-portal-lite --root /out
+
 FROM scratch
 
     WORKDIR /app
 
-    COPY --from=builder --link /usr/src/app/target/x86_64-unknown-linux-musl/release/web-portal-lite .
-    COPY --from=builder --link /usr/src/app/target/x86_64-unknown-linux-musl/release/web-portal-lite-cli .
+    COPY --from=builder --link /out/bin/web-portal-lite .
+    COPY --from=builder --link /out/bin/web-portal-lite-cli .
 
     COPY Rocket.toml .
     COPY web-portal-lite/static /usr/src/app/web-portal-lite/static
