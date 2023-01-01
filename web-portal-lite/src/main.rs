@@ -1,14 +1,18 @@
+use clap::Parser;
 use rocket::fairing::AdHoc;
 use rocket::fs::{relative, FileServer};
-use rocket::{catchers, launch, routes};
+use rocket::{catchers, routes};
 use rocket_dyn_templates::Template;
+use std::io;
+use std::io::Write;
+use web_portal_lite_core::{create_hashed_password, VERSION};
 
+mod args;
 mod config;
 mod routes;
 mod utils;
 
-#[launch]
-fn rocket() -> _ {
+fn handle_serve() -> rocket::Rocket<rocket::Build> {
     let mut rocket = rocket::build()
         .attach(Template::fairing())
         .mount(
@@ -58,4 +62,33 @@ fn rocket() -> _ {
     rocket = rocket.manage(user_config);
 
     rocket
+}
+
+fn handle_password_hasher() {
+    let mut password = String::new();
+    print!("enter password: ");
+    io::stdout().flush().unwrap();
+    match io::stdin().read_line(&mut password) {
+        Ok(_) => match create_hashed_password(password.trim()) {
+            Some(hashed_pw) => println!("hashed password: {hashed_pw}"),
+            None => eprintln!("error hashing password"),
+        },
+        Err(error) => eprintln!("error: {error}"),
+    }
+}
+
+fn handle_version() {
+    println!("v{}", VERSION)
+}
+
+#[rocket::main]
+async fn main() {
+    let args = args::Args::parse();
+    match args.cmd {
+        args::Command::Serve => {
+            let _ = handle_serve().launch().await;
+        }
+        args::Command::PwHasher => handle_password_hasher(),
+        args::Command::Version => handle_version(),
+    };
 }

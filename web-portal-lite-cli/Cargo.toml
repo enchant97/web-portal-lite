@@ -1,8 +1,0 @@
-[package]
-name = "web-portal-lite-cli"
-version = "1.0.0"
-edition = "2021"
-
-[dependencies]
-web-portal-lite-core = { path="../web-portal-lite-core" }
-clap = { version = "4", features = ["derive"] }
