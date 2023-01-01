@@ -1,4 +1,22 @@
-[workspace]
-members = [
-    "web-portal-lite",
-]
+[package]
+name = "web-portal-lite"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+# app config
+serde = "1.0"
+serde_yaml= "0.9"
+# cli
+clap = { version = "4", features = ["derive"] }
+# password hashing
+argon2 = "0.4"
+rand_core = { version = "0.6", features = ["std"] }
+
+[dependencies.rocket]
+version = "0.5.0-rc.2"
+features = ["secrets"]
+
+[dependencies.rocket_dyn_templates]
+version = "0.1.0-rc.2"
+features = ["tera"]
