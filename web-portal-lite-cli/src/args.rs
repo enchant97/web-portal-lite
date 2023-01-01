@@ -11,4 +11,6 @@ pub struct Args {
 pub enum Command {
     #[clap(about = "Hash a password for use in the user config")]
     PwHasher,
+    #[clap(about = "Show app version")]
+    Version,
 }

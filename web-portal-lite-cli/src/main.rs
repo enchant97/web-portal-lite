@@ -1,7 +1,7 @@
 use clap::Parser;
 use std::io;
 use std::io::Write;
-use web_portal_lite_core::create_hashed_password;
+use web_portal_lite_core::{create_hashed_password, VERSION};
 
 mod args;
 
@@ -18,9 +18,14 @@ fn handle_password_hasher() {
     }
 }
 
+fn handle_version() {
+    println!("v{}", VERSION)
+}
+
 fn main() {
     let args = args::Args::parse();
     match args.cmd {
         args::Command::PwHasher => handle_password_hasher(),
+        args::Command::Version => handle_version(),
     };
 }
