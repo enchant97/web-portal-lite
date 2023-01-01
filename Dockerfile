@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-FROM blackdex/rust-musl:x86_64-musl-stable as builder
+FROM rust:1.66-bullseye as builder
 
     WORKDIR /src
 
@@ -26,7 +26,7 @@ FROM scratch as build-content
     COPY web-portal-lite/static ./static
     COPY templates ./templates
 
-FROM scratch
+FROM gcr.io/distroless/cc-debian11
 
     WORKDIR /app
 
