@@ -3,7 +3,7 @@
 {% block content %}
 <h2>Login</h2>
 <form class="login" action="/auth/login" method="post">
-    <img src="/static/icon-256.png" alt="app icon">
+    <img src="/static/icon.svg" alt="app icon">
     <label for="username">Username</label>
     <input type="text" name="username" id="username" placeholder="username..." required>
     <label for="password">Password</label>
