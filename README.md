@@ -16,7 +16,7 @@ It has been designed to run through docker and it is recommended to put it behin
 - Optionally secure the portal with user accounts
 - Icon based theme
 - Dark/Light mode
-- Lightweight Docker image (uses scratch)
+- Lightweight Docker image
 
 ## Showcase
 [![web-portal-lite showcase image, showing dark and light themes](docs/assets/showcase.png)](docs/assets/showcase.png)
