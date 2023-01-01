@@ -1,6 +1,7 @@
 // this hides warning when Flash<Redirect> is used (issue with rocket?)
 #![allow(clippy::result_large_err)]
 use crate::config::{ServerConfig, UserConfig, UserConfigDashboard};
+use crate::password::verify_hashed_password;
 use crate::utils::{ensure_authenticated, get_user_dashboard_or_default, load_named_icon, User};
 use rocket::form::{Form, FromForm, Strict};
 use rocket::fs::NamedFile;
@@ -9,7 +10,6 @@ use rocket::request::FlashMessage;
 use rocket::response::{Flash, Redirect};
 use rocket::{catch, get, post, uri, State};
 use rocket_dyn_templates::{context, Template};
-use web_portal_lite_core::verify_hashed_password;
 
 pub type FlashedRedirect = Flash<Redirect>;
 

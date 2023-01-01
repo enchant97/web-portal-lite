@@ -5,12 +5,17 @@ use rocket::{catchers, routes};
 use rocket_dyn_templates::Template;
 use std::io;
 use std::io::Write;
-use web_portal_lite_core::{create_hashed_password, VERSION};
 
 mod args;
 mod config;
+mod password;
 mod routes;
 mod utils;
+
+use crate::password::create_hashed_password;
+
+/// The current app version
+const VERSION: &str = env!("CARGO_PKG_VERSION");
 
 fn handle_serve() -> rocket::Rocket<rocket::Build> {
     let mut rocket = rocket::build()

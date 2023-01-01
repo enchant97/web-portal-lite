@@ -1,5 +1,4 @@
 [workspace]
 members = [
     "web-portal-lite",
-    "web-portal-lite-core",
 ]
