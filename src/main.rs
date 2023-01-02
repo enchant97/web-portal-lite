@@ -1,5 +1,5 @@
 use clap::Parser;
-use config::UserConfig;
+use config::{UserConfig, UserConfigError};
 use rocket::fairing::AdHoc;
 use rocket::fs::{relative, FileServer};
 use rocket::{catchers, routes};
@@ -37,29 +37,15 @@ fn handle_serve() -> rocket::Rocket<rocket::Build> {
 
     let server_config: config::ServerConfig = rocket.figment().extract().expect("config");
 
-    // ensure user config is valid before launching
-    match utils::is_user_config_supported(&server_config.config_path) {
-        Ok(_) => (),
-        Err(error) => {
-            match error {
-                utils::UserConfigError::FileAccessError => panic!("user config file access error"),
-                utils::UserConfigError::ParseError => panic!("user config parse error"),
-                utils::UserConfigError::VersionNotSupported => {
-                    panic!("user config version not supported")
-                }
-            };
-        }
-    };
-
     // early full user config parse, so routes can use it as a State
-    let user_config = match utils::read_user_config(&server_config.config_path) {
+    let user_config = match UserConfig::from_yaml_file(&server_config.config_path) {
         Ok(loaded_config) => loaded_config,
         Err(error) => match error {
-            utils::UserConfigError::FileAccessError => panic!("user config file access error"),
-            utils::UserConfigError::ParseError => {
+            UserConfigError::FileAccessError => panic!("user config file access error"),
+            UserConfigError::ParseError => {
                 panic!("user config parse error, does config match version number?")
             }
-            utils::UserConfigError::VersionNotSupported => {
+            UserConfigError::VersionNotSupported => {
                 panic!("user config version not supported")
             }
         },

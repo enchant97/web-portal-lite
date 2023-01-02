@@ -1,8 +1,17 @@
 use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
+use std::fs::File;
+use std::io::BufReader;
 use std::path::PathBuf;
 
 pub const CURRENT_USER_CONFIG_VER: usize = 1;
+
+#[derive(Debug)]
+pub enum UserConfigError {
+    FileAccessError,
+    ParseError,
+    VersionNotSupported,
+}
 
 #[derive(Debug, Deserialize)]
 pub struct ServerConfig {
@@ -46,14 +55,23 @@ pub struct UserConfig {
 }
 
 impl UserConfig {
-    /// Check whether any accounts are available (excluding public virtual)
-    pub fn has_users(&self, public_username: &String) -> bool {
-        if self.accounts.is_empty()
-            || (self.accounts.len() == 1 && self.accounts.contains_key(public_username))
-        {
-            return false;
+    /// Create from reading a yaml file
+    pub fn from_yaml_file(config_path: &PathBuf) -> Result<Self, UserConfigError> {
+        // read file
+        let file = match File::open(config_path) {
+            Ok(file_obj) => file_obj,
+            Err(_) => return Err(UserConfigError::FileAccessError),
+        };
+        // parse file
+        let user_config: UserConfig = match serde_yaml::from_reader(BufReader::new(file)) {
+            Ok(loaded_config) => loaded_config,
+            Err(_) => return Err(UserConfigError::ParseError),
+        };
+        // config version number check
+        if user_config.config_version != CURRENT_USER_CONFIG_VER {
+            return Err(UserConfigError::VersionNotSupported);
         }
-        true
+        Ok(user_config)
     }
 
     pub fn create_template() -> Self {
@@ -82,6 +100,17 @@ impl UserConfig {
         }
     }
 
+    /// Check whether any accounts are available (excluding public virtual)
+    pub fn has_users(&self, public_username: &String) -> bool {
+        if self.accounts.is_empty()
+            || (self.accounts.len() == 1 && self.accounts.contains_key(public_username))
+        {
+            return false;
+        }
+        true
+    }
+
+    /// Serialise into a yaml string
     pub fn to_yaml_string(&self) -> String {
         serde_yaml::to_string(self).expect("failed to serialise UserConfig to yaml string")
     }
