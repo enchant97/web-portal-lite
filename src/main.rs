@@ -1,4 +1,5 @@
 use clap::Parser;
+use config::UserConfig;
 use rocket::fairing::AdHoc;
 use rocket::fs::{relative, FileServer};
 use rocket::{catchers, routes};
@@ -82,6 +83,11 @@ fn handle_password_hasher() {
     }
 }
 
+fn handle_generate_config() {
+    let config = UserConfig::create_template().to_yaml_string();
+    print!("{}", config);
+}
+
 fn handle_version() {
     println!("v{}", VERSION)
 }
@@ -94,6 +100,7 @@ async fn main() {
             let _ = handle_serve().launch().await;
         }
         args::Command::PwHasher => handle_password_hasher(),
+        args::Command::ConfigGen => handle_generate_config(),
         args::Command::Version => handle_version(),
     };
 }

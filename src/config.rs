@@ -55,4 +55,34 @@ impl UserConfig {
         }
         true
     }
+
+    pub fn create_template() -> Self {
+        let mut accounts = HashMap::new();
+        accounts.insert(
+            "public".to_owned(),
+            UserConfigAccount {
+                password: "".to_owned(),
+                dashboard: Some(vec![UserConfigDashboard {
+                    title: "Group One".to_owned(),
+                    compact: false,
+                    show_header: true,
+                    links: vec![UserConfigLink {
+                        title: "Link One".to_owned(),
+                        color_name: "no-color".to_owned(),
+                        icon_name: "".to_owned(),
+                        href: "".to_owned(),
+                    }],
+                }]),
+            },
+        );
+        UserConfig {
+            config_version: CURRENT_USER_CONFIG_VER,
+            public_dash: true,
+            accounts,
+        }
+    }
+
+    pub fn to_yaml_string(&self) -> String {
+        serde_yaml::to_string(self).expect("failed to serialise UserConfig to yaml string")
+    }
 }
