@@ -10,7 +10,7 @@ It has been designed to run through docker and it is recommended to put it behin
 - Access a grid of beautiful links to your web services
 - Works without JavaScript, to provide a lightning fast experience
 - Customise dashboard through a basic yaml file (no database needed)
-- Wide range of link colors
+- Wide range of link colors (or no color)
 - Provide your own app icons for links
 - Create groups of links
 - Optionally secure the portal with user accounts
@@ -20,7 +20,6 @@ It has been designed to run through docker and it is recommended to put it behin
 
 ## Showcase
 [![web-portal-lite showcase image, showing dark and light themes](docs/assets/showcase.png)](docs/assets/showcase.png)
-
 
 ## Docs
 Docs are located in the [/docs](docs/index.md) directory or at: <https://enchantedcode.co.uk/web-portal-lite/>.

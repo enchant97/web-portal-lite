@@ -4,3 +4,7 @@ Cargo.lock
 
 # app
 /data
+
+# docs
+/site
+/bin

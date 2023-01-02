@@ -1,0 +1,17 @@
+[book]
+authors = ["Leo Spratt"]
+language = "en"
+multilingual = false
+src = "docs"
+title = "Web Portal Lite"
+
+[build]
+build-dir = "site"
+
+[output.html]
+git-repository-url = "https://github.com/enchant97/web-portal-lite"
+git-repository-icon = "fa-github"
+edit-url-template = "https://github.com/enchant97/web-portal-lite/edit/main/{path}"
+site-url = "/web-portal-lite/"
+preferred-dark-theme = "coal"
+no-section-label = true
