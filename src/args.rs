@@ -14,7 +14,7 @@ pub enum Command {
     #[clap(about = "Hash a password for use in the user config")]
     PwHasher,
     #[clap(about = "Generate a config template, will output to stdout as yaml")]
-    ConfigGen,
+    GenConfig,
     #[clap(about = "Show app version")]
     Version,
 }

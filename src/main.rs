@@ -86,7 +86,7 @@ async fn main() {
             let _ = handle_serve().launch().await;
         }
         args::Command::PwHasher => handle_password_hasher(),
-        args::Command::ConfigGen => handle_generate_config(),
+        args::Command::GenConfig => handle_generate_config(),
         args::Command::Version => handle_version(),
     };
 }
