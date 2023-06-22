@@ -5,18 +5,18 @@ edition = "2021"
 
 [dependencies]
 # app config
-serde = "1.0"
-serde_yaml= "0.9"
+serde = "1.0.164"
+serde_yaml= "0.9.21"
 # cli
-clap = { version = "4", features = ["derive"] }
+clap = { version = "4.3.5", features = ["derive"] }
 # password hashing
-argon2 = "0.4"
-rand_core = { version = "0.6", features = ["std"] }
+argon2 = "0.5.0"
+rand_core = { version = "0.6.4", features = ["std"] }
 
 [dependencies.rocket]
-version = "0.5.0-rc.2"
+version = "0.5.0-rc.3"
 features = ["secrets"]
 
 [dependencies.rocket_dyn_templates]
-version = "0.1.0-rc.2"
+version = "0.1.0-rc.3"
 features = ["tera"]
