@@ -4,12 +4,12 @@ FROM rust:1.66-bullseye as builder
 
     WORKDIR /app
 
-    COPY Cargo.toml .
+    COPY Cargo.toml Cargo.lock ./
     COPY src src
 
     RUN --mount=type=cache,target=/root/.cargo/registry \
         --mount=type=cache,target=/app/target,sharing=private \
-        cargo install --path . --root /out
+        cargo install --locked --path . --root /out
 
 FROM scratch as build-content
 
