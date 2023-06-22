@@ -20,17 +20,19 @@
     <header>
         <h1>Portal</h1>
         <nav>
+            <ul>
             {% if has_users %}
-            <a href="/" title="Home">{{ macros::feather_img(icon_name='home') }}</a>
+            <li><a href="/" title="Home">{{ macros::feather_img(icon_name='home') }}</a></li>
             {% if is_authenticated %}
-            <a href="/auth/logout">{{ macros::feather_img(icon_name='log-out') }}Log Out</a>
+            <li><a href="/auth/logout">{{ macros::feather_img(icon_name='log-out') }}Log Out<a></li>
             {% else %}
-            <a href="/auth/login">{{ macros::feather_img(icon_name='log-in') }}Log In</a>
+            <li><a href="/auth/login">{{ macros::feather_img(icon_name='log-in') }}Log In</a></li>
             {% endif %}
             {% endif %}
-            <button class="hidden" id="themeToggleBnt" title="Theme Picker">{{ macros::feather_img(icon_name='sun')
+            <li><button class="hidden" id="themeToggleBnt" title="Theme Picker">{{ macros::feather_img(icon_name='sun')
                 }}|{{
-                macros::feather_img(icon_name='moon') }}</button>
+                macros::feather_img(icon_name='moon') }}</button></li>
+            </ul>
         </nav>
     </header>
     {% if flashed_message %}

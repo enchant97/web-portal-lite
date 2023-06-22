@@ -11,13 +11,16 @@
         {% endif %}
         <div class="links{%- if group.compact %} compact{%- endif -%}">
             {% for link in group.links %}
-            <a class="link {{ link.color_name }}" href="{{ link.href }}" rel="noopener noreferrer"
-                aria-label="{{ link.title }}">
-                {%- if link.icon_name -%}
-                <img src="/static/icons/{{ link.icon_name }}" alt="icon for '{{ link.icon_name }}' link">
-                {%- endif -%}
-                <span>{{ link.title }}</span>
-            </a>
+            <div class="link-outer">
+                <div class="chip {{ link.color_name }}"></div>
+                <a class="link" href="{{ link.href }}" rel="noopener noreferrer"
+                    aria-label="{{ link.title }}">
+                    {%- if link.icon_name -%}
+                    <img src="/static/icons/{{ link.icon_name }}" alt="icon for '{{ link.icon_name }}' link">
+                    {%- endif -%}
+                    <span>{{ link.title }}</span>
+                </a>
+            </div>
             {% endfor %}
         </div>
     </div>
