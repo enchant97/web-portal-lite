@@ -82,20 +82,20 @@ pub fn post_login(
     user_config: &State<UserConfig>,
     login_form: Form<Strict<UserLoginForm>>,
 ) -> Result<Redirect, FlashedRedirect> {
-    let username = login_form.username.to_string();
+    let username = &login_form.username;
 
     // ensure username is not the public virtual account when public mode is on
-    if username == server_config.public_dash_username && user_config.public_dash {
+    if username == &server_config.public_dash_username && user_config.public_dash {
         return Err(Flash::error(
             Redirect::to(uri!(get_login)),
             "login to this account is not allowed",
         ));
     }
 
-    match user_config.accounts.get(&username) {
+    match user_config.accounts.get(username) {
         Some(user) => {
             if verify_hashed_password(&login_form.password, &user.password) {
-                cookies.add_private(Cookie::new("AUTH", username));
+                cookies.add_private(Cookie::new("AUTH", username.to_owned()));
                 return Ok(Redirect::to(uri!(index)));
             }
             Err(Flash::error(

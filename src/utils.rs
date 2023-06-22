@@ -31,7 +31,7 @@ pub fn ensure_authenticated(
 ) -> Result<String, ()> {
     match cookies.get_private("AUTH") {
         Some(cookie) => match accounts.get(cookie.value()) {
-            Some(_) => Ok(cookie.value().to_string()),
+            Some(_) => Ok(cookie.value().to_owned()),
             None => Err(()),
         },
         None => Err(()),
@@ -76,7 +76,7 @@ impl<'r> FromRequest<'r> for User {
                     }),
                     Err(_) => match u_config.public_dash {
                         true => Outcome::Success(User {
-                            username: s_config.public_dash_username.clone(),
+                            username: s_config.public_dash_username.to_owned(),
                             is_public_acc: true,
                         }),
                         false => Outcome::Failure((Status::Unauthorized, ())),
