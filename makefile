@@ -1,4 +1,4 @@
-MDBOOK_VER := v0.4.25
+MDBOOK_VER := v0.4.30
 MDBOOK_URL := https://github.com/rust-lang/mdBook/releases/download/${MDBOOK_VER}/mdbook-${MDBOOK_VER}-x86_64-unknown-linux-gnu.tar.gz
 
 none:
