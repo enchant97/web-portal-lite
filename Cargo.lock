@@ -2250,7 +2250,7 @@ checksum = "ca6ad05a4870b2bf5fe995117d3728437bd27d7cd5f06f13c17443ef369775a1"
 
 [[package]]
 name = "web-portal-lite"
-version = "1.1.0"
+version = "1.2.0"
 dependencies = [
  "argon2",
  "clap",
