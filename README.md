@@ -1,3 +1,5 @@
+<img src="static/icon.svg" width=200 height=200>
+
 # Web Portal Lite
 ![GitHub](https://img.shields.io/github/license/enchant97/web-portal-lite?style=flat-square)
 ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/enchant97/web-portal-lite?include_prereleases&label=latest%20release&style=flat-square)
