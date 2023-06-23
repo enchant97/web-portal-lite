@@ -155,7 +155,7 @@ header nav button:hover {
 footer {
     text-align: center;
     margin-top: 12rem;
-    border-top: var(--font-light) solid .2rem;
+    border-top: var(--bg-sub) solid .4rem;
     padding-top: 1rem;
 }
 
@@ -266,6 +266,7 @@ footer a {
     margin: auto;
     display: flex;
     flex-direction: column;
+    gap: .2rem;
 }
 
 .login input {
@@ -275,6 +276,12 @@ footer a {
 .login img {
     max-width: 200px;
     margin: auto;
+}
+
+.form-control {
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
 }
 
 .hidden {
@@ -329,6 +336,6 @@ footer a {
     }
 
     .login {
-        width: 100%;
+        width: auto;
     }
 }

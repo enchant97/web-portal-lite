@@ -4,10 +4,14 @@
 <h2>Login</h2>
 <form class="login" action="/auth/login" method="post">
     <img src="/static/icon.svg" alt="app icon">
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username" placeholder="username..." required>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" placeholder="password..." required>
+    <label class="form-control">
+        Username
+        <input type="text" name="username" placeholder="username..." autocomplete="username" required>
+    </label>
+    <label class="form-control">
+        Password
+        <input type="password" name="password" placeholder="password..." autocomplete="current-password" required>
+    </label>
     <button type="submit">Login</button>
 </form>
 {% endblock content %}
