@@ -5,7 +5,7 @@ edition = "2021"
 
 [dependencies]
 # app config
-serde = "1.0.164"
+serde = "1.0.165"
 serde_yaml= "0.9.21"
 # cli
 clap = { version = "4.3.5", features = ["derive"] }
