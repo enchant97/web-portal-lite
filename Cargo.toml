@@ -6,7 +6,7 @@ edition = "2021"
 [dependencies]
 # app config
 serde = "1.0.164"
-serde_yaml= "0.9.21"
+serde_yaml= "0.9.23"
 # cli
 clap = { version = "4.3.5", features = ["derive"] }
 # password hashing
